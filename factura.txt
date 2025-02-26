@@ -1,0 +1,12 @@
+
+Nombre del Mesero: mari
+Nombre de la Mesa: 4
+Pedidos:
+
+ |Plato: Leche de Tigre| Cantidad: 1| Precio:18.0
+
+
+ |Plato: Gaseosa| Cantidad: 1| Precio:4.0
+
+Total: S/22.0
+===================================
