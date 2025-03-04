@@ -8,10 +8,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class VistaLogin extends javax.swing.JFrame {
-
+    private ControladorUsuario controlador;
+    
     public VistaLogin() {
         initComponents();
         setLocationRelativeTo(null);
+        controlador = new ControladorUsuario(this);
     }
 
     /**
@@ -117,32 +119,9 @@ public class VistaLogin extends javax.swing.JFrame {
 
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-    String nombre = idUser.getText();
+        String nombre = idUser.getText();
         String contrasena = new String(passwordUser.getPassword());
-
-        ControladorUsuario controlador = new ControladorUsuario();
-        if (controlador.validarUsuario(nombre, contrasena)) {
-            String rol = controlador.obtenerRolUsuario(nombre);
-            switch (rol) {
-                case "Administrador":
-                    JOptionPane.showMessageDialog(this, "Bienvenido Administrador.");
-                    mostrarPanelAdministrador();
-                    break;
-                case "Mesero":
-                    JOptionPane.showMessageDialog(this, "Bienvenido Mesero.");
-                    mostrarPanelMesero();
-                    break;
-                case "Cocinero":
-                    JOptionPane.showMessageDialog(this, "Bienvenido Cocinero.");
-                    mostrarPanelCocinero();
-                    break;
-                default:
-                    JOptionPane.showMessageDialog(this, "Rol no reconocido.");
-                    break;
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.");
-        }
+        controlador.handleLogin(nombre, contrasena);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void idUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idUserActionPerformed

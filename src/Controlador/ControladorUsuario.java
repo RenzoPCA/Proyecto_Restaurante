@@ -4,52 +4,77 @@
  */
 package Controlador;
 
-import Clases.Usuario;
+import Clases.Persona;
+import Clases.Administrador;
+import Clases.Cocinero;
+import Clases.Mesero;
 import java.util.HashMap;
+import Ingredientes.*;
+import Frames.*;
 
-/**
- *
- * @author Usuario
- */
 
 public class ControladorUsuario {
-    private HashMap<String, Usuario> usuarios;
+    private HashMap<String, String> personas;
+    private VistaLogin vistaLogin;
 
-    public ControladorUsuario() {
-        usuarios = new HashMap<>();
-        inicializarUsuarios();
+    public ControladorUsuario(VistaLogin vistaLogin) {
+        personas = new HashMap<>();
+        this.vistaLogin = vistaLogin;
+        // Agregar usuarios de ejemplo
+        personas.put("admin", "admin123");
+        personas.put("cocinero", "cocinero123");
+        personas.put("mesero", "mesero123");
     }
 
-    private void inicializarUsuarios() {
-        usuarios.put("admin", new Usuario("admin", "admin123", "Administrador"));
-        usuarios.put("mesero", new Usuario("mesero", "mesero123", "Mesero"));
-        usuarios.put("cocinero", new Usuario("cocinero", "cocinero123", "Cocinero"));
-    }
-
-    public boolean validarUsuario(String nombre, String contrasena) {
-        Usuario usuario = usuarios.get(nombre);
-        return usuario != null && usuario.getContrasena().equals(contrasena);
-    }
-
-    public String obtenerRolUsuario(String nombre) {
-        Usuario usuario = usuarios.get(nombre);
-        return usuario != null ? usuario.getRol() : null;
-    }
-    
-    public void agregarUsuario(String nombre, String contrasena, String rol) {
-        if (!usuarios.containsKey(nombre)) {
-            usuarios.put(nombre, new Usuario(nombre, contrasena, rol));
+    public void handleLogin(String nombre, String contrasena) {
+        if (personas.containsKey(nombre) && personas.get(nombre).equals(contrasena)) {
+            Persona persona = obtenerPersona(nombre, contrasena);
+            abrirVistaSegunTipo(persona);
         } else {
-            System.out.println("El usuario ya existe.");
+            System.out.println("Nombre de usuario o contraseña incorrectos");
         }
     }
 
-    public Usuario obtenerUsuario(String nombre) {
-        return usuarios.get(nombre);
+    private Persona obtenerPersona(String nombre, String contrasena) {
+        switch (nombre) {
+            case "admin":
+                return new Administrador(nombre, contrasena);
+            case "cocinero":
+                return new Cocinero(nombre, contrasena);
+            case "mesero":
+                return new Mesero(nombre, contrasena, 1); // Asignar un valor para numMesa
+            default:
+                throw new IllegalArgumentException("Tipo de persona desconocido");
+        }
     }
 
-    public void eliminarUsuario(String nombre) {
-        usuarios.remove(nombre);
+    private void abrirVistaSegunTipo(Persona persona) {
+        if (persona instanceof Administrador) {
+            abrirVistaAdmin((Administrador) persona);
+        } else if (persona instanceof Cocinero) {
+            abrirVistaCocinero((Cocinero) persona);
+        } else if (persona instanceof Mesero) {
+            abrirVistaMesero((Mesero) persona);
+        } else {
+            throw new IllegalArgumentException("Tipo de persona desconocido");
+        }
+    }
+
+    private void abrirVistaAdmin(Administrador administrador) {
+        System.out.println("Abriendo vista de Admin");
+        // Código para abrir la vista de Admin
+    }
+
+    private void abrirVistaCocinero(Cocinero cocinero) {
+        System.out.println("Abriendo vista de Cocinero");
+        new GestorIngredientesUI(); // Abrir la vista de GestorIngredientesUI
+        vistaLogin.dispose();
+    }
+
+    private void abrirVistaMesero(Mesero mesero) {
+        System.out.println("Abriendo vista de Mesero");
+        new MenuFrame().setVisible(true); // Abrir la vista de MenuFrame
+        vistaLogin.dispose(); // Cerrar la vista de VistaLogin
     }
 
 }

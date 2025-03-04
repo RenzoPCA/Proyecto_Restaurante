@@ -1,26 +1,16 @@
 package Clases;
 import java.util.HashSet;
 
-public class Mesero {
-    private String nombre;
+public class Mesero extends Persona {
     private int numMesa;
     private int numVentas;
-    
     private HashSet<Integer> mesasAtendidas;
 
-    public Mesero(String nombre, int numMesa) {
-        this.nombre = nombre;
+    public Mesero(String nombre, String contrasena, int numMesa) {
+        super(nombre, contrasena);
         this.numMesa = numMesa;
         this.numVentas = 0;
         this.mesasAtendidas = new HashSet<>();
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
     }
 
     public int getNumMesa() {

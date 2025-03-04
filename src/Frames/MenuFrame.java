@@ -178,7 +178,6 @@ public class MenuFrame extends javax.swing.JFrame {
         setBackground(new java.awt.Color(0, 0, 0));
         setFocusTraversalPolicyProvider(true);
         setMinimumSize(null);
-        setPreferredSize(new java.awt.Dimension(626, 626));
 
         jPanel1FondoMenu.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1FondoMenu.setMinimumSize(new java.awt.Dimension(860, 800));
@@ -230,6 +229,11 @@ public class MenuFrame extends javax.swing.JFrame {
         jButton1.setText("Volver");
         jButton1.setToolTipText("");
         jButton1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel1FondoMenu.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 500, -1, -1));
 
         jLabel8.setBackground(new java.awt.Color(255, 255, 255));
@@ -311,6 +315,12 @@ public class MenuFrame extends javax.swing.JFrame {
     private void jComboBoxarrozMariscosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxarrozMariscosActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBoxarrozMariscosActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        this.dispose(); // Cierra el JFrame actual
+        new VistaLogin().setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
